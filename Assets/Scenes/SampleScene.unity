@@ -443,9 +443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c61123e57fb14b209b37e2288936eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
-  playButton: {fileID: 0}
-  roomCodeText: {fileID: 0}
+  playerPrefab: {fileID: 7340459765973563416, guid: a9cce68d008284eb5884dd501c38200e, type: 3}
+  roomCodeText: {fileID: 1533422926}
 --- !u!4 &923587377
 Transform:
   m_ObjectHideFlags: 0
