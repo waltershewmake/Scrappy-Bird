@@ -160,6 +160,7 @@ public class PlayerManager : MonoBehaviour
         {
             score++;
             playerScoreText.text = score.ToString();
+            GameManager.Instance.soundEffects.PlayCollectCoin();
         }
     }
 }
