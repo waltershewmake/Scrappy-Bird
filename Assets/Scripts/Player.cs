@@ -32,11 +32,11 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            _direction = Vector3.up;
+            _direction = Vector3.up * strength;
         }
         
         _direction.y += gravity * Time.deltaTime;
-        transform.position += _direction * strength * Time.deltaTime;
+        transform.position += _direction * Time.deltaTime;
     }
 
     void AnimateSprite()
