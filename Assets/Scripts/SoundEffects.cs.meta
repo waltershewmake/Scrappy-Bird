@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 57d19bfeb425945f78a7b6f7df242425
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioSource: {instanceID: 0}
+  - startGameClip: {fileID: 8300000, guid: 3fc9f3ad05e9043c08e10a203b17fa10, type: 3}
+  - countdownClip: {fileID: 8300000, guid: 3d6402b87e85e46adb3fe04099667ad2, type: 3}
+  - gameOverClip: {fileID: 8300000, guid: aaa863486761f454eb174a0667ffdf10, type: 3}
+  - collectBoostClip: {fileID: 8300000, guid: 10f2fa1fa75e0460e8b0ea086e427ce2, type: 3}
+  - collectCoinClip: {fileID: 8300000, guid: 104f830f37c9a4780adda4fd2f08210b, type: 3}
+  - winnerClip: {fileID: 8300000, guid: e5a0069afa2ad4f8eae60fe2695fd8e4, type: 3}
+  - jumpClip: {fileID: 8300000, guid: 50f4bc436a3834e56bc2e8d5de75bc24, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
