@@ -8,6 +8,7 @@ MonoImporter:
   - normalClip: {fileID: 8300000, guid: ab598e1e6d8c448ada6efecb8246bc2c, type: 3}
   - slowClip: {fileID: 8300000, guid: 3c12a2b26ec8b40a4a007a7ab699a9e7, type: 3}
   - fastClip: {fileID: 8300000, guid: 152f4b4777fd4437a807c76599a18e03, type: 3}
+  - starPowerClip: {fileID: 8300000, guid: 673090924d97e41bf8df2e79a19def30, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
