@@ -56,14 +56,12 @@ public class SoundEffects : MonoBehaviour
         PlaySound(jumpClip);
     }
 
-    // Generic method to play a given sound clip
+    // Method to play a sound without interrupting others
     private void PlaySound(AudioClip clip)
     {
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop(); // Optionally stop the current sound
-        }
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
         audioSource.Play();
+        Destroy(audioSource, clip.length); // Destroy the AudioSource after the clip is done playing
     }
 }
