@@ -21,6 +21,7 @@ public enum PlayerState
 {
     Menu,
     Dead,
+    Ready,
     Alive,
     Hidden
 }
@@ -74,6 +75,24 @@ public class PlayerManager : MonoBehaviour
                     
                     _playerState = PlayerState.Dead;
                     break;
+                case PlayerState.Ready:
+                    isAlive = true;
+                    enabled = false;
+                    
+                    score = 0;
+                    playerScoreText.text = score.ToString();
+                    
+                    playerScoreText.gameObject.SetActive(true);
+                    playerNameText.gameObject.SetActive(true);
+                    
+                    Vector3 position = transform.position;
+                    position.y = 0f;
+                    transform.position = position;
+        
+                    _direction = Vector3.zero;
+                    
+                    _playerState = PlayerState.Ready;
+                    break;
                 case PlayerState.Alive:
                     isAlive = true;
                     enabled = true;
@@ -104,15 +123,6 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
-    }
-    
-    private void OnEnable()
-    {
-        Vector3 position = transform.position;
-        position.y = 0f;
-        transform.position = position;
-        
-        _direction = Vector3.zero;
     }
     
     void Update()
@@ -150,6 +160,7 @@ public class PlayerManager : MonoBehaviour
         {
             score++;
             playerScoreText.text = score.ToString();
+            GameManager.Instance.soundEffects.PlayCollectCoin();
         }
     }
 }

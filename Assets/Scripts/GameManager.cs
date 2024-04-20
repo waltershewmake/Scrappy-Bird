@@ -62,6 +62,12 @@ public class GameManager : MonoBehaviour
                     scoreboard.SetActive(false);
                     
                     soundEffects.PlayStartGame();
+                    
+                    foreach (PlayerManager playerManager in playerManagers.Values)
+                        playerManager.State = PlayerState.Ready;
+                    
+                    Pipes[] pipes = FindObjectsOfType<Pipes>();
+                    foreach (Pipes pipe in pipes) Destroy(pipe.gameObject);
 
                     Time.timeScale = 1f;
 
