@@ -1430,6 +1430,7 @@ GameObject:
   - component: {fileID: 7653019691349464682}
   - component: {fileID: 6847952493751976845}
   - component: {fileID: 876633609772641873}
+  - component: {fileID: 7653019691349464683}
   m_Layer: 5
   m_Name: GameOver
   m_TagString: Untagged
@@ -1494,6 +1495,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 400, y: 87.5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7653019691349464683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734362167861090768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3f9985284fe417b8564222b251a6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1 &8478993483725985477
 GameObject:
   m_ObjectHideFlags: 0

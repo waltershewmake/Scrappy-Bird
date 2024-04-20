@@ -307,6 +307,24 @@ public class GameManager : MonoBehaviour
         {
             // re-calculate the viewport rect for each player
             manager.playerCamera.rect = new Rect((1f / playerManagers.Count) * playerIndex, 0f, 1f / playerManagers.Count, 1f);
+            
+            int layerIndex = LayerMask.NameToLayer("Player " + playerIndex);
+            if (layerIndex != -1)
+            {
+                // set layer for all children of player
+                foreach (Transform child in manager.transform)
+                {
+                    child.gameObject.layer = layerIndex;
+                }
+            
+                // Update player camera to include only default, UI, and its own layer
+                manager.playerCamera.cullingMask = (1 << LayerMask.NameToLayer("Default")) | (1 << LayerMask.NameToLayer("UI")) | (1 << layerIndex);
+            }
+            else
+            {
+                Debug.LogWarning("Layer 'Player " + playerIndex + "' is not defined. Skipping layer assignment.");
+            }
+        
             playerIndex++;
         }
     }

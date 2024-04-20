@@ -511,10 +511,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: -9.81
   strength: 5
-  sprites:
-  - {fileID: 21300000, guid: 4b4a57de377138e4e8369d8145550062, type: 3}
-  - {fileID: 21300000, guid: 47a1c54c1427e10458e1e21315a00666, type: 3}
-  - {fileID: 21300000, guid: 477a76ff29832b2499b9244de7070326, type: 3}
+  aquaSprites:
+  - {fileID: 21300000, guid: b1acb355c8a0a4ecf9bdd00e5405b319, type: 3}
+  - {fileID: 21300000, guid: 166d7e037711d40018934eb2723d43df, type: 3}
+  - {fileID: 21300000, guid: 64e1a12f09d6f475386f2c6f7c7380eb, type: 3}
+  greenSprites:
+  - {fileID: 21300000, guid: 44e69037db0aa49859a22d78ce7e7027, type: 3}
+  - {fileID: 21300000, guid: e56bae0c58eab481a9622b073b817f67, type: 3}
+  - {fileID: 21300000, guid: 3a527ccbe6c8847e283a4412c9f7baee, type: 3}
+  limeSprites:
+  - {fileID: 21300000, guid: 0bf3f6a6f8d89464a818b2a20bfb1827, type: 3}
+  - {fileID: 21300000, guid: d09ab33ab0ff146cd8dc8050d1c9b0dc, type: 3}
+  - {fileID: 21300000, guid: dbd1e05fe165d43079d15a4b46cede94, type: 3}
+  magentaSprites:
+  - {fileID: 21300000, guid: a023b4f18dacc4b3b8e2635ea486e099, type: 3}
+  - {fileID: 21300000, guid: 6694037d47c164509aea93b261fd295f, type: 3}
+  - {fileID: 21300000, guid: 9350373dd98194a6fa14c6d69c759da6, type: 3}
+  purpleSprites:
+  - {fileID: 21300000, guid: 6deb29080656b4be7abe126e242e8e72, type: 3}
+  - {fileID: 21300000, guid: cdaa8f232c93b4ab48e571b8915809fb, type: 3}
+  - {fileID: 21300000, guid: bbeef448423f7456aba4b7d3dbde98e9, type: 3}
+  redSprites:
+  - {fileID: 21300000, guid: c956a02da507e4fd5807f8d0f23f3cb8, type: 3}
+  - {fileID: 21300000, guid: 9034086d7b62049a0b3081ee74fb53e7, type: 3}
+  - {fileID: 21300000, guid: 2144db24df2064559b35ebacb05b7f1a, type: 3}
+  skySprites:
+  - {fileID: 21300000, guid: 0e42937baca9046fc826a069f3b4d136, type: 3}
+  - {fileID: 21300000, guid: c7b0cbed034dc47e685d50e5a9e2bab8, type: 3}
+  - {fileID: 21300000, guid: 9ece59c7fdec0442b8d1a30f952d487e, type: 3}
+  yellowSprites:
+  - {fileID: 21300000, guid: a3037040303554e6dab21398f7dfac99, type: 3}
+  - {fileID: 21300000, guid: 2375fc0c467d64a75985421870b71c99, type: 3}
+  - {fileID: 21300000, guid: f97e157597a5d4207bd2ac93d18c1be0, type: 3}
+  currentSprites: []
   playerCamera: {fileID: 8572601320319545325}
   playerScoreText: {fileID: 6480035443415604026}
   playerNameText: {fileID: 5145650196302951931}
