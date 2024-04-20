@@ -23,6 +23,8 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
+        if (GameManager.Instance.State != GameState.Playing) return;
+        
         GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);
         pipes.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
     }

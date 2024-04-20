@@ -11,7 +11,7 @@ public class Pipes : MonoBehaviour
 
     private void Start()
     {
-        _destroyPosition = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f;
+        _destroyPosition = Vector3.left.x * 14f;
     }
 
     void Update()

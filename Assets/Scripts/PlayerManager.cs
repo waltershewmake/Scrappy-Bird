@@ -35,8 +35,6 @@ public class PlayerManager : MonoBehaviour
     public Camera playerCamera;
     public Text playerScoreText;
     public Text playerNameText;
-    public GameObject getReady;
-    public GameObject gameOver;
     public bool isAlive = true;
     
     public PlayerColor color;
@@ -62,8 +60,6 @@ public class PlayerManager : MonoBehaviour
                     isAlive = false;
                     enabled = false;
 
-                    getReady.SetActive(true);
-                    gameOver.SetActive(false); 
                     playerScoreText.gameObject.SetActive(false);
                     playerNameText.gameObject.SetActive(true);
 
@@ -73,8 +69,6 @@ public class PlayerManager : MonoBehaviour
                     isAlive = false;
                     enabled = false;
 
-                    getReady.SetActive(false);
-                    gameOver.SetActive(true);
                     playerScoreText.gameObject.SetActive(true);
                     playerNameText.gameObject.SetActive(true);
                     
@@ -84,8 +78,6 @@ public class PlayerManager : MonoBehaviour
                     isAlive = true;
                     enabled = true;
                     
-                    getReady.SetActive(false);
-                    gameOver.SetActive(false);
                     playerScoreText.gameObject.SetActive(true);
                     playerNameText.gameObject.SetActive(true);
                     
@@ -95,8 +87,6 @@ public class PlayerManager : MonoBehaviour
                     isAlive = false;
                     enabled = false;
                     
-                    getReady.SetActive(false);
-                    gameOver.SetActive(false); 
                     playerScoreText.gameObject.SetActive(false);
                     playerNameText.gameObject.SetActive(false);
                     
@@ -127,9 +117,12 @@ public class PlayerManager : MonoBehaviour
     
     void Update()
     {
+        if (!isAlive || GameManager.Instance.State != GameState.Playing) return;
+        
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || triangleButtonDown)
         {
             _direction = Vector3.up * strength;
+            GameManager.Instance.soundEffects.PlayJump();
         }
         
         _direction.y += gravity * Time.deltaTime;

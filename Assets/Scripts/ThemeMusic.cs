@@ -25,6 +25,11 @@ public class ThemeMusic : MonoBehaviour
     {
         // Update loop left intentionally empty
     }
+    
+    public void StopPlaying()
+    {
+        source.Stop();
+    }
 
     // Method to play the normal theme
     public void PlayNormalTheme()
@@ -47,6 +52,9 @@ public class ThemeMusic : MonoBehaviour
     // Generic method to handle playing any theme
     private void PlayTheme(AudioClip clip)
     {
+        // if source is already the same clip, don't play it again
+        if (lastClip == clip) return;
+        
         if (source.isPlaying) source.Stop();
         source.clip = clip;
         source.Play();
