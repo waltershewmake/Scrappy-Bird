@@ -451,6 +451,7 @@ MonoBehaviour:
   countdown: {fileID: 957130838}
   countdownText: {fileID: 957130841}
   themeMusic: {fileID: 1637429330}
+  scoreboardText: {fileID: 1549071325}
 --- !u!4 &923587377
 Transform:
   m_ObjectHideFlags: 0

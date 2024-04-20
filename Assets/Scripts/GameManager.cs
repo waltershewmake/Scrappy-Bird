@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject countdown;
     public Text countdownText;
     public ThemeMusic themeMusic;
+    public Text scoreboardText;
     
     private GameState _gameState;
     
@@ -98,6 +99,22 @@ public class GameManager : MonoBehaviour
 
                     themeMusic.StopPlaying();
                     soundEffects.PlayGameOver();
+                    
+                    // generate leaderboard
+                    // 1. <name> - <score>
+                    // 2. <name> - <score>
+                    // 3. <name> - <score>
+                    // .....
+                    
+                    string leaderboard = "";
+                    List<PlayerManager> players = new List<PlayerManager>(playerManagers.Values);
+                    players.Sort((a, b) => b.score.CompareTo(a.score));
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        leaderboard += (i + 1) + ". " + players[i].playerNameText.text + " - " + players[i].score + "\n";
+                    }
+                    
+                    scoreboardText.text = leaderboard;
                     
                     Time.timeScale = 0f;
 
