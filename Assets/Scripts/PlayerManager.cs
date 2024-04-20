@@ -109,9 +109,6 @@ public class PlayerManager : MonoBehaviour
     void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        
-        // we need to update the camera viewport width & position based on the amount of players
-        // playerCamera.rect = new Rect((1f / GameManager.Instance.playerManagers.Count) * playerIndex, 0f, 1f / GameManager.Instance.playerManagers.Count, 1f);
     }
 
     void Start()
