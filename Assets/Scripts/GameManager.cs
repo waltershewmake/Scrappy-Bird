@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public enum GameState
 {
-    Menu, // -> Playing | quit game
+    Menu, // -> Starting | quit game,
+    Starting, // -> Playing
     Playing, // -> GameOver
-    GameOver // -> Menu | Playing
+    GameOver // -> Menu | Starting
 }
 
 public class GameManager : MonoBehaviour
@@ -19,7 +20,15 @@ public class GameManager : MonoBehaviour
     
     public GameObject playerPrefab;
     public Text roomCodeText;
-
+    public GameObject getReady;
+    public GameObject gameOver;
+    public GameObject pressPlusToStart;
+    public GameObject scoreboard;
+    public SoundEffects soundEffects;
+    public GameObject countdown;
+    public Text countdownText;
+    public ThemeMusic themeMusic;
+    
     private GameState _gameState;
     
     public GameState State
@@ -31,6 +40,12 @@ public class GameManager : MonoBehaviour
             {
                 case GameState.Menu:
                     roomCodeText.gameObject.SetActive(true);
+                    getReady.SetActive(false);
+                    gameOver.SetActive(false);
+                    pressPlusToStart.SetActive(true);
+                    scoreboard.SetActive(false);
+                    
+                    themeMusic.PlaySlowTheme();
                     
                     Time.timeScale = 0f;
 
@@ -39,11 +54,29 @@ public class GameManager : MonoBehaviour
                     
                     _gameState = GameState.Menu;
                     break;
-                case GameState.Playing:
-                    
+                case GameState.Starting:
                     roomCodeText.gameObject.SetActive(false);
+                    getReady.SetActive(true);
+                    gameOver.SetActive(false);
+                    pressPlusToStart.SetActive(false);
+                    scoreboard.SetActive(false);
                     
+                    soundEffects.PlayStartGame();
+
                     Time.timeScale = 1f;
+
+                    StartCoroutine(nameof(Countdown));
+                    
+                    _gameState = GameState.Starting;
+                    break;
+                case GameState.Playing:
+                    roomCodeText.gameObject.SetActive(false);
+                    getReady.SetActive(false);
+                    gameOver.SetActive(false);
+                    pressPlusToStart.SetActive(false);
+                    scoreboard.SetActive(false);
+                    
+                    themeMusic.PlayNormalTheme();
                     
                     foreach (PlayerManager playerManager in playerManagers.Values)
                         playerManager.State = PlayerState.Alive;
@@ -52,6 +85,13 @@ public class GameManager : MonoBehaviour
                     break;
                 case GameState.GameOver:
                     roomCodeText.gameObject.SetActive(false);
+                    getReady.SetActive(false);
+                    gameOver.SetActive(true);
+                    pressPlusToStart.SetActive(true);
+                    scoreboard.SetActive(true);
+
+                    themeMusic.StopPlaying();
+                    soundEffects.PlayGameOver();
                     
                     Time.timeScale = 0f;
 
@@ -87,8 +127,6 @@ public class GameManager : MonoBehaviour
     public void PlayerJoined(string jsonPlayerJoin)
     {
         PlayerJoin playerJoin = JsonUtility.FromJson<PlayerJoin>(jsonPlayerJoin);
-        
-        Debug.Log("Player Joined: " + playerJoin.name);
 
         GameStats expectedStats = new GameStats();
         if (playerJoin.stats == null)
@@ -117,13 +155,9 @@ public class GameManager : MonoBehaviour
         
         playerManagers.Add(playerJoin.name, playerManager);
         
-        int playerIndex = 0;
-        foreach (PlayerManager manager in playerManagers.Values)
-        {
-            // re-calculate the viewport rect for each player
-            manager.playerCamera.rect = new Rect((1f / playerManagers.Count) * playerIndex, 0f, 1f / playerManagers.Count, 1f);
-            playerIndex++;
-        }
+        soundEffects.PlayJump();
+        
+        CalculateViewportRects();
     }
 
     public void PlayerLeft(string playerName)
@@ -140,29 +174,23 @@ public class GameManager : MonoBehaviour
         }
         
         Debug.Log("Player Left: " + playerName);
+        
+        CalculateViewportRects();
     }
 
     public void PlayerControllerState(string jsonControllerState)
     {
         ControllerState controllerState = JsonUtility.FromJson<ControllerState>(jsonControllerState);
         
-        Debug.Log("Player: " + controllerState.name);
-        Debug.Log("Joystick: " + controllerState.Joystick.x + ", " + controllerState.Joystick.y);
-        Debug.Log("Circle: " + controllerState.circle);
-        Debug.Log("Triangle: " + controllerState.triangle);
-        Debug.Log("Plus: " + controllerState.plus);
-        
-        if (playerManagers.ContainsKey(controllerState.name))
+        if (playerManagers.TryGetValue(controllerState.name, out var playerManager))
         {
-            PlayerManager playerManager = playerManagers[controllerState.name];
             playerManager.circleButtonDown = controllerState.circle;
             playerManager.triangleButtonDown = controllerState.triangle;
         }
         
         if (controllerState.plus)
-        {
-            if (playerJoins.Count > 1) Play();
-        }
+            if (playerJoins.Count > 1) 
+                StartGame();
     }
 
     public class Message
@@ -247,7 +275,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        #if UNITY_EDITOR == true && UNITY_WEBGL == false
+        #if UNITY_EDITOR == true
         DebugMode();
         #endif
         
@@ -266,6 +294,39 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    private void CalculateViewportRects()
+    {
+        int playerIndex = 0;
+        foreach (PlayerManager manager in playerManagers.Values)
+        {
+            // re-calculate the viewport rect for each player
+            manager.playerCamera.rect = new Rect((1f / playerManagers.Count) * playerIndex, 0f, 1f / playerManagers.Count, 1f);
+            playerIndex++;
+        }
+    }
+    
+    IEnumerator Countdown()
+    {
+        countdown.SetActive(true);
+        
+        soundEffects.PlayCountdown();
+        int countdownTime = 3;
+        
+        while (countdownTime > 0)
+        {
+            countdownText.text = countdownTime.ToString();
+            yield return new WaitForSeconds(1f);
+            countdownTime--;
+        }
+        
+        countdownText.text = "GO!";
+        yield return new WaitForSeconds(1f);
+        
+        countdown.SetActive(false);
+        
+        PlayGame();
+    }
+    
     private void DebugMode()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -299,8 +360,13 @@ public class GameManager : MonoBehaviour
         Exit();
         #endif
     }
+
+    public void StartGame()
+    {
+        State = GameState.Starting;
+    }
     
-    public void Play()
+    public void PlayGame()
     {
         State = GameState.Playing;
 
