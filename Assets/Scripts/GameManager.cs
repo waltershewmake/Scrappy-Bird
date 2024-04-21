@@ -29,6 +29,15 @@ public class GameManager : MonoBehaviour
     public Text countdownText;
     public ThemeMusic themeMusic;
     public Text scoreboardText;
+    public GameObject settingsPanel;
+    // public Dictionary<string/*theme name*/, Material[]> themes;
+    public Material[] defaultTheme;
+    public Material[] cityTheme;
+    public Material[] desertTheme;
+    public Material[] moonTheme;
+    public GameObject background;
+    public GameObject ground;
+    public GameObject pipesPrefab;
     
     private GameState _gameState;
     
@@ -61,8 +70,10 @@ public class GameManager : MonoBehaviour
                     gameOver.SetActive(false);
                     pressPlusToStart.SetActive(false);
                     scoreboard.SetActive(false);
+                    settingsPanel.SetActive(false);
                     
                     soundEffects.PlayStartGame();
+                    themeMusic.StopPlaying();
                     
                     foreach (PlayerManager playerManager in playerManagers.Values)
                         playerManager.State = PlayerState.Ready;
@@ -82,6 +93,7 @@ public class GameManager : MonoBehaviour
                     gameOver.SetActive(false);
                     pressPlusToStart.SetActive(false);
                     scoreboard.SetActive(false);
+                    settingsPanel.SetActive(false);
                     
                     themeMusic.PlayNormalTheme();
                     
@@ -96,6 +108,7 @@ public class GameManager : MonoBehaviour
                     gameOver.SetActive(true);
                     pressPlusToStart.SetActive(true);
                     scoreboard.SetActive(true);
+                    settingsPanel.SetActive(false);
 
                     themeMusic.StopPlaying();
                     soundEffects.PlayGameOver();
@@ -413,5 +426,80 @@ public class GameManager : MonoBehaviour
 
         Pipes[] pipes = FindObjectsOfType<Pipes>();
         foreach (Pipes pipe in pipes) Destroy(pipe.gameObject);
+    }
+
+    public void OpenSettings()
+    {
+        settingsPanel.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settingsPanel.SetActive(false);
+    }
+
+    public void SetTheme(string theme)
+    {
+        Material[] materials;
+        // material[0] = background
+        // material[1] = ground
+        // material[2] = pipes
+        
+        // if (themes.TryGetValue(theme, out materials))
+        // {
+        //     background.GetComponent<MeshRenderer>().materials = materials;
+        //     ground.GetComponent<MeshRenderer>().materials = materials;
+        //     foreach (MeshRenderer pipe in pipesPrefab.GetComponentsInChildren<MeshRenderer>())
+        //     {  
+        //         pipe.materials = materials;
+        //     }
+        // }
+        
+        // if (themes.TryGetValue(theme, out materials))
+        // {
+        //     background.GetComponent<MeshRenderer>().material = materials[0];
+        //     ground.GetComponent<MeshRenderer>().material = materials[1];
+        //     // foreach (MeshRenderer pipe in pipesPrefab.GetComponentsInChildren<MeshRenderer>())
+        //     // {  
+        //     //     pipe.material = materials[2];
+        //     // }
+        // }
+        if (theme == "City")
+        {
+            background.GetComponent<MeshRenderer>().material = cityTheme[0];
+            ground.GetComponent<MeshRenderer>().material = cityTheme[1];
+            // foreach (MeshRenderer pipe in pipesPrefab.GetComponentsInChildren<MeshRenderer>())
+            // {
+            //     pipe.material = cityTheme[2];
+            // }
+        }
+        else if (theme == "Desert")
+        {
+            background.GetComponent<MeshRenderer>().material = desertTheme[0];
+            ground.GetComponent<MeshRenderer>().material = desertTheme[1];
+            // foreach (MeshRenderer pipe in pipesPrefab.GetComponentsInChildren<MeshRenderer>())
+            // {
+            //     pipe.material = desertTheme[2];
+            // }
+        }
+        else if (theme == "Moon")
+        {
+            background.GetComponent<MeshRenderer>().material = moonTheme[0];
+            ground.GetComponent<MeshRenderer>().material = moonTheme[1];
+            // foreach (MeshRenderer pipe in pipesPrefab.GetComponentsInChildren<MeshRenderer>())
+            // {
+            //     pipe.material = moonTheme[2];
+            // }
+        }
+        else
+        {
+            background.GetComponent<MeshRenderer>().material = defaultTheme[0];
+            ground.GetComponent<MeshRenderer>().material = defaultTheme[1];
+            // foreach (MeshRenderer pipe in pipesPrefab.GetComponentsInChildren<MeshRenderer>())
+            // {
+            //     pipe.material = defaultTheme[2];
+            // }
+        }
+       
     }
 }

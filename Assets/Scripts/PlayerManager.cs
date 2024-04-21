@@ -76,6 +76,8 @@ public class PlayerManager : MonoBehaviour
                     playerScoreText.gameObject.SetActive(false);
                     playerNameText.gameObject.SetActive(true);
 
+                    playerCamera.enabled = true;
+
                     _playerState = PlayerState.Menu;
                     break;
                 case PlayerState.Dead:
@@ -84,6 +86,8 @@ public class PlayerManager : MonoBehaviour
 
                     playerScoreText.gameObject.SetActive(true);
                     playerNameText.gameObject.SetActive(true);
+                    
+                    playerCamera.enabled = false;
                     
                     _playerState = PlayerState.Dead;
                     break;
@@ -96,6 +100,8 @@ public class PlayerManager : MonoBehaviour
                     
                     playerScoreText.gameObject.SetActive(true);
                     playerNameText.gameObject.SetActive(true);
+                    
+                    playerCamera.enabled = true;
                     
                     Vector3 position = transform.position;
                     position.y = 0f;
@@ -112,6 +118,8 @@ public class PlayerManager : MonoBehaviour
                     playerScoreText.gameObject.SetActive(true);
                     playerNameText.gameObject.SetActive(true);
                     
+                    playerCamera.enabled = true;
+                    
                     _playerState = PlayerState.Alive;
                     break;
                 case PlayerState.Hidden:
@@ -120,6 +128,8 @@ public class PlayerManager : MonoBehaviour
                     
                     playerScoreText.gameObject.SetActive(false);
                     playerNameText.gameObject.SetActive(false);
+                    
+                    playerCamera.enabled = false;
                     
                     _playerState = PlayerState.Hidden;
                     break;

@@ -53,7 +53,7 @@ public class ThemeMusic : MonoBehaviour
     private void PlayTheme(AudioClip clip)
     {
         // if source is already the same clip, don't play it again
-        if (lastClip == clip) return;
+        if (lastClip == clip && source.isPlaying) return;
         
         if (source.isPlaying) source.Stop();
         source.clip = clip;
